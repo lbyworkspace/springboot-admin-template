@@ -1,0 +1,10 @@
+server:
+  port: 8090
+
+spring:
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true  # 显示sql语句

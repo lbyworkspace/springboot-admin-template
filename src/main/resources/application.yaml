@@ -7,4 +7,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true  # 显示sql语句
+    show-sql: true
+  session:
+    store-type: redis

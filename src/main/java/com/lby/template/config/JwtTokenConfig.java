@@ -22,4 +22,8 @@ public class JwtTokenConfig {
         converter.setSigningKey(SIGN_KEY);
         return converter;
     }
+
+    public void test(){
+
+    }
 }

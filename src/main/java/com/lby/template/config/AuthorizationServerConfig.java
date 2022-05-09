@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,12 +40,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("123456");
         //配置客户端，使用密码模式验证鉴权
         clients.inMemory()
                 .withClient("c1")
                 //密码模式及refresh_token模式
-                .resourceIds("r1")
+                .resourceIds("resource")
                 .authorizedGrantTypes("refresh_token", "password", "authorization_code", "customer_code")
                 .scopes("all")
                 .secret(new BCryptPasswordEncoder().encode("123456"))
@@ -70,6 +70,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.tokenStore(tokenStore);
         endpoints.tokenServices(tokenServices());
         endpoints.userDetailsService(userDetailsService);
+        endpoints.allowedTokenEndpointRequestMethods(HttpMethod.GET,HttpMethod.POST);
     }
 
     @Override

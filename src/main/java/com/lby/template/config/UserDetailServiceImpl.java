@@ -21,6 +21,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<com.lby.template.entity.User> user = userDao.findByUsername(username);
         com.lby.template.entity.User user1 = user.get();
+
         UserDetails userDetails = User.withUsername(user1.getUsername())
                 .password(new BCryptPasswordEncoder().encode(user1.getPassword())).authorities("admin").build();
         return userDetails;

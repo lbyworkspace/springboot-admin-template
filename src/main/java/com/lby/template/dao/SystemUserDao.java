@@ -1,6 +1,6 @@
 package com.lby.template.dao;
 
-import com.lby.template.entity.User;
+import com.lby.template.entity.SystemUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserDao extends JpaRepository<User,Long> {
+public interface SystemUserDao extends JpaRepository<SystemUser,Long> {
 
-    Optional<User> findByUsername(@Param("username") String username);
+    Optional<SystemUser> findByUsername(@Param("username") String username);
 }

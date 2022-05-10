@@ -1,9 +1,9 @@
 package com.lby.template.service;
 
-import com.lby.template.entity.User;
+import com.lby.template.entity.SystemUser;
 
 public interface UserService {
 
-    void register(User user);
+    void register(SystemUser user);
 
 }

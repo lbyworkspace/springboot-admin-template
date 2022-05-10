@@ -1,7 +1,7 @@
 package com.lby.template.service.Impl;
 
-import com.lby.template.dao.UserDao;
-import com.lby.template.entity.User;
+import com.lby.template.dao.SystemUserDao;
+import com.lby.template.entity.SystemUser;
 import com.lby.template.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,11 @@ import javax.annotation.Resource;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private UserDao userDao;
+    private SystemUserDao userDao;
 
 
     @Override
-    public void register(User user) {
+    public void register(SystemUser user) {
         userDao.save(user);
     }
 

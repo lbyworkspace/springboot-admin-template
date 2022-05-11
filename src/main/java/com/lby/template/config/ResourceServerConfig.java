@@ -1,6 +1,9 @@
 package com.lby.template.config;
 
 import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
+import com.lby.template.enums.ResponseEnum;
+import com.lby.template.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -67,7 +70,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
             HttpServletResponse response = sessionInformationExpiredEvent.getResponse();
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write("当前账号已被登录，请重新登录");
+            response.getWriter().write(new Gson().toJson(ResponseVO.error(ResponseEnum.LOGGED_IN)));
         }
     }
 
@@ -83,11 +86,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
             if (cause instanceof InvalidTokenException) {
                 log.error("InvalidTokenException : {}",cause.getMessage());
                 //Token无效
-                response.getWriter().write("令牌无效或者已过期");
+                response.getWriter().write(new Gson().toJson(ResponseVO.error(ResponseEnum.ACCESS_TOKEN_INVALID)));
             } else {
                 log.error("AuthenticationException : NoAuthentication");
                 //资源未授权
-                response.getWriter().write("该请求需要身份验证");
+                response.getWriter().write(new Gson().toJson(ResponseVO.error(ResponseEnum.UNAUTHORIZED)));
             }
 
         }
@@ -98,7 +101,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             //访问资源的用户权限不足
             log.error("AccessDeniedException : {}",accessDeniedException.getMessage());
-            response.getWriter().write(JSON.toJSONString("令牌无效或者已过期"));
+            response.getWriter().write(JSON.toJSONString(new Gson().toJson(ResponseVO.error(ResponseEnum.ACCESS_TOKEN_INVALID))));
         }
     }
 

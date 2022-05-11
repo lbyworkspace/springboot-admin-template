@@ -27,7 +27,7 @@ public class TemplateTest {
 
     @Test
     public void test(){
-        userService.register(SystemUser.builder().username("123").password(passwordEncoder.encode("123")).isNormal(true).role(RoleEnum.ADMIN).build());
+        userService.register(SystemUser.builder().username("admin").password(passwordEncoder.encode("admin")).isNormal(true).role(RoleEnum.ADMIN).build());
     }
 
     @Test

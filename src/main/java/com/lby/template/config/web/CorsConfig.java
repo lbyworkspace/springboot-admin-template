@@ -1,4 +1,4 @@
-package com.lby.template.config;
+package com.lby.template.config.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,8 +8,9 @@ import org.springframework.web.filter.CorsFilter;
 
 /**
  * 全局跨域处理过滤器
+ * Author: laishao
+ * Date: 2022/5/11
  */
-
 @Configuration
 public class CorsConfig {
     @Bean

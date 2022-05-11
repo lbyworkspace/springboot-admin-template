@@ -1,4 +1,4 @@
-package com.lby.template.config;
+package com.lby.template.config.oauth;
 
 import com.alibaba.fastjson.JSON;
 import com.google.gson.Gson;
@@ -26,6 +26,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Author: laishao
+ * Date: 2022/5/11
+ */
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter{

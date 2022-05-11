@@ -6,6 +6,10 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * Author: laishao
+ * Date: 2022/5/11
+ */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseVO<T> implements Serializable {

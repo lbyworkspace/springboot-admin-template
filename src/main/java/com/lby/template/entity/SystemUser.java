@@ -36,4 +36,11 @@ public class SystemUser extends BaseEntity<Long> implements Serializable {
     @Column(name = "role",nullable = false)
     private RoleEnum role;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
+    @Column(name = "real_name",nullable = false)
+    private String realName;
+
+    
 }

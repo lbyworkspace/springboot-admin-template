@@ -6,6 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Author: laishao
+ * Date: 2022/5/11
+ */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandle {

@@ -1,4 +1,4 @@
-package com.lby.template.config;
+package com.lby.template.config.oauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,9 +15,17 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import java.util.Arrays;
+
+/**
+ * Author: laishao
+ * Date: 2022/5/11
+ */
 @EnableAuthorizationServer
 @Configuration
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -37,6 +45,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private TokenEnhancer tokenEnhancer;
+
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -55,10 +66,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Primary
     public DefaultTokenServices tokenServices(){
         DefaultTokenServices service = new DefaultTokenServices();
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer,accessTokenConverter));
         service.setClientDetailsService(clientDetailsService);
         service.setSupportRefreshToken(true); //允许令牌自动刷新
         service.setTokenStore(tokenStore);
-        service.setTokenEnhancer(accessTokenConverter);
+        service.setTokenEnhancer(tokenEnhancerChain);
         service.setAccessTokenValiditySeconds(7200);
         service.setRefreshTokenValiditySeconds(259200);
         return service;

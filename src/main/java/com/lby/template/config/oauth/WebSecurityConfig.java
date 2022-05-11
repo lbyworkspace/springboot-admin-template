@@ -1,4 +1,4 @@
-package com.lby.template.config;
+package com.lby.template.config.oauth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +17,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
 
+/**
+ * Author: laishao
+ * Date: 2022/5/11
+ */
 @EnableWebSecurity
 @Configuration
 @Order(-1)

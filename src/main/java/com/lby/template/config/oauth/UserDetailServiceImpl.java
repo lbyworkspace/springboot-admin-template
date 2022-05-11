@@ -1,21 +1,22 @@
-package com.lby.template.config;
+package com.lby.template.config.oauth;
 
 import com.lby.template.dao.SystemUserDao;
 import com.lby.template.entity.SystemUser;
+import com.lby.template.vo.UserDetailVo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
+/**
+ * Author: laishao
+ * Date: 2022/5/11
+ */
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
@@ -37,7 +38,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(res.getRole().getName()));
 
-        return new User(res.getUsername(),res.getPassword(),enabled,accountNonExpired,credentialsNonExpired,accountNonLocked,authorities);
+        Map<String, Object> info = new HashMap<>();
 
+        info.put("avatarUrl",res.getAvatarUrl());
+
+        return new UserDetailVo(res.getUsername(), res.getPassword(), enabled, accountNonExpired, credentialsNonExpired,
+                accountNonLocked, authorities, res.getId(), res.getRealName(), info);
     }
 }
